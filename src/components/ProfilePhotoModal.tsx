@@ -8,13 +8,8 @@ interface ProfilePhotoModalProps {
 
 const PRESET_AVATARS = [
   {
-    id: 'original',
-    name: 'Sufian Sauri (Bawaan)',
-    url: 'https://lh3.googleusercontent.com/aida-public/AB6AXuA_6SsUiLVAVzB3mWfqhG3zGFlPH7ujuCaHAwavVx0vM-FQmleF6S3OL_N_m7MdpgErPsdIELwfAulZDyVr4h_uQZ_5_LNktBkUsYFYGVYKb1VZypMNXnNSwSwm64kHm3YTjom0kTa0_mhfcujZV9CQb6U2iAuVppTO5g3EnhQ6dBWd4LC8NTEP50exVOsl-B5QkSkz_mZ-b9Bec9nUlS07PSJ07GJ6LpU53taDI2K9ue11bSzu7wMhaQ',
-  },
-  {
-    id: 'academic',
-    name: 'Dosen / Akademisi',
+    id: 'default',
+    name: 'Praktisi Istiqomah (Bawaan)',
     url: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=240&q=80',
   },
   {
@@ -23,14 +18,24 @@ const PRESET_AVATARS = [
     url: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=240&q=80',
   },
   {
-    id: 'builder',
-    name: 'Tech & AI Creator',
-    url: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=240&q=80',
+    id: 'creator',
+    name: 'Tech & Digital Creator',
+    url: 'https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&w=240&q=80',
   },
   {
     id: 'nature',
-    name: 'Urban Gardener',
+    name: 'Pencinta Alam & Kebugaran',
     url: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=240&q=80',
+  },
+  {
+    id: 'professional',
+    name: 'Profesional & Eksekutif',
+    url: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=240&q=80',
+  },
+  {
+    id: 'leader',
+    name: 'Pemimpin & Pengusaha',
+    url: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=240&q=80',
   },
 ];
 
@@ -145,13 +150,14 @@ export const ProfilePhotoModal: React.FC<ProfilePhotoModalProps> = ({ isOpen, on
           {/* Preset Avatars Selection */}
           <div className="flex flex-col gap-2">
             <span className="text-xs font-semibold text-[#404944]">{t.chooseAvatar}</span>
-            <div className="grid grid-cols-5 gap-2">
+            <div className="grid grid-cols-3 sm:grid-cols-6 gap-2">
               {PRESET_AVATARS.map((preset) => {
                 const isSelected = selectedPhoto === preset.url;
                 return (
                   <button
                     key={preset.id}
                     type="button"
+                    title={preset.name}
                     onClick={() => setSelectedPhoto(preset.url)}
                     className={`relative p-1 rounded-xl transition-all flex flex-col items-center gap-1 ${
                       isSelected

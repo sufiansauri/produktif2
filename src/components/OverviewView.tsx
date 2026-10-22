@@ -6,12 +6,14 @@ interface OverviewViewProps {
   onOpenQuickLog: () => void;
   onSelectHabit: (habit: Habit) => void;
   onSelectBlock: (block: RhythmBlock) => void;
+  onOpenEditProfile: () => void;
 }
 
 export const OverviewView: React.FC<OverviewViewProps> = ({
   onOpenQuickLog,
   onSelectHabit,
   onSelectBlock,
+  onOpenEditProfile,
 }) => {
   const {
     habits,
@@ -261,9 +263,32 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
             <span className="font-['Inter'] text-xs text-[#404944] uppercase tracking-wider font-semibold">
               {selectedDate}
             </span>
-            <h1 className="font-['Plus_Jakarta_Sans'] text-2xl text-[#0d1c2e] font-bold tracking-tight">
-              {user.name}
-            </h1>
+            <div className="flex items-center gap-2 group cursor-pointer" onClick={onOpenEditProfile}>
+              <h1 className="font-['Plus_Jakarta_Sans'] text-2xl text-[#0d1c2e] font-bold tracking-tight group-hover:text-[#064e3b] transition-colors">
+                {user.name}
+              </h1>
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onOpenEditProfile();
+                }}
+                className="w-6 h-6 rounded-full bg-[#eff4ff] hover:bg-[#b0f0d6]/60 text-[#064e3b] flex items-center justify-center transition-all opacity-80 group-hover:opacity-100"
+                title={t.editProfileBtn}
+              >
+                <span className="material-symbols-outlined text-[14px]">edit</span>
+              </button>
+            </div>
+            <div className="flex items-center gap-2 mt-0.5">
+              <span className="text-[11px] font-semibold text-[#064e3b] bg-[#b0f0d6]/60 px-2 py-0.5 rounded-full">
+                {user.levelTitle}
+              </span>
+              {user.bio && (
+                <span className="text-[11px] text-[#707974] line-clamp-1 italic max-w-xs">
+                  • {user.bio}
+                </span>
+              )}
+            </div>
           </div>
 
           {/* Consistent Streak badge */}

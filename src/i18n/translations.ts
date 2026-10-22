@@ -130,6 +130,18 @@ export const translations = {
     photoModalSubtitle: 'Sesuaikan foto profil akun Rhythm Tracker Anda',
     previewLabel: 'Pratinjau Foto',
     applyPhotoBtn: 'Terapkan Foto',
+
+    // Edit Profile Modal & Generic Personalization
+    editProfileTitle: 'Edit Profil & Identitas',
+    editProfileSubtitle: 'Sesuaikan nama, gelar, bio, dan target ritme harian Anda',
+    editProfileBtn: 'Edit Profil',
+    titleRoleLabel: 'Gelar / Peran Utama',
+    bioLabel: 'Bio Singkat / Visi Hidup',
+    tilawahTargetLabel: 'Target Tilawah Harian (Halaman)',
+    wakeUpLabel: 'Target Bangun Pagi',
+    sleepLabel: 'Target Tidur Malam',
+    profileUpdatedToast: 'Profil berhasil diperbarui!',
+    generalProfileReset: 'Kembalikan ke Profil Umum Bawaan',
   },
   en: {
     // Header & Navigation
@@ -260,5 +272,17 @@ export const translations = {
     photoModalSubtitle: 'Customize your Rhythm Tracker profile picture',
     previewLabel: 'Photo Preview',
     applyPhotoBtn: 'Apply Photo',
+
+    // Edit Profile Modal & Generic Personalization
+    editProfileTitle: 'Edit Profile & Identity',
+    editProfileSubtitle: 'Customize your name, role, bio, and daily cadence targets',
+    editProfileBtn: 'Edit Profile',
+    titleRoleLabel: 'Title / Main Role',
+    bioLabel: 'Short Bio / Life Vision',
+    tilawahTargetLabel: 'Daily Tilawah Target (Pages)',
+    wakeUpLabel: 'Wake-up Target',
+    sleepLabel: 'Bedtime Target',
+    profileUpdatedToast: 'Profile updated successfully!',
+    generalProfileReset: 'Reset to General Default Profile',
   },
 };

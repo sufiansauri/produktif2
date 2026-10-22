@@ -3,9 +3,13 @@ import { useRhythm } from '../context/RhythmContext';
 
 interface SettingsViewProps {
   onOpenPhotoModal: () => void;
+  onOpenEditProfile: () => void;
 }
 
-export const SettingsView: React.FC<SettingsViewProps> = ({ onOpenPhotoModal }) => {
+export const SettingsView: React.FC<SettingsViewProps> = ({
+  onOpenPhotoModal,
+  onOpenEditProfile,
+}) => {
   const {
     user,
     updateUser,
@@ -20,8 +24,13 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onOpenPhotoModal }) 
   } = useRhythm();
 
   const [name, setName] = useState(user.name);
+  const [levelTitle, setLevelTitle] = useState(user.levelTitle);
+  const [bio, setBio] = useState(user.bio || '');
   const [quote, setQuote] = useState(user.quote);
   const [quotePrinciple, setQuotePrinciple] = useState(user.quotePrinciple);
+  const [tilawahTarget, setTilawahTarget] = useState(user.tilawahDailyTargetPages || 20);
+  const [wakeUpTime, setWakeUpTime] = useState(user.wakeUpTime || '04:00');
+  const [sleepTime, setSleepTime] = useState(user.sleepTime || '22:00');
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [installPrompt, setInstallPrompt] = useState<any>(null);
   const [isStandalone, setIsStandalone] = useState(false);
@@ -71,11 +80,39 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onOpenPhotoModal }) 
   const handleSaveProfile = (e: React.FormEvent) => {
     e.preventDefault();
     updateUser({
-      name,
-      quote,
-      quotePrinciple,
+      name: name.trim() || 'Sahabat Rhythm',
+      levelTitle: levelTitle.trim() || 'Praktisi Istiqomah',
+      bio: bio.trim(),
+      quote: quote.trim() || user.quote,
+      quotePrinciple: quotePrinciple.trim() || user.quotePrinciple,
+      tilawahDailyTargetPages: Number(tilawahTarget) || 20,
+      wakeUpTime,
+      sleepTime,
     });
-    showToast(language === 'id' ? 'Profil & prinsip ritme berhasil disimpan' : 'Profile & principles saved successfully');
+    showToast(language === 'id' ? 'Profil & prinsip ritme berhasil disimpan!' : 'Profile & principles saved successfully!');
+  };
+
+  const handleResetToGeneralProfile = () => {
+    setName('Sahabat Rhythm');
+    setLevelTitle('Praktisi Istiqomah');
+    setBio('Membangun ritme harian teratur antara spiritualitas, produktivitas, dan keluarga.');
+    setQuote('"Disiplin adalah jembatan antara ketaatan spiritual dan karya yang bermakna."');
+    setQuotePrinciple('Prinsip Ritme Harian');
+    setTilawahTarget(20);
+    setWakeUpTime('04:00');
+    setSleepTime('22:00');
+    updateUser({
+      name: 'Sahabat Rhythm',
+      levelTitle: 'Praktisi Istiqomah',
+      bio: 'Membangun ritme harian teratur antara spiritualitas, produktivitas, dan keluarga.',
+      quote: '"Disiplin adalah jembatan antara ketaatan spiritual dan karya yang bermakna."',
+      quotePrinciple: 'Prinsip Ritme Harian',
+      avatarUrl: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=240&q=80',
+      tilawahDailyTargetPages: 20,
+      wakeUpTime: '04:00',
+      sleepTime: '22:00',
+    });
+    showToast(language === 'id' ? 'Profil berhasil dikembalikan ke profil umum' : 'Profile reset to general default');
   };
 
   const handleQuickUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -131,9 +168,14 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onOpenPhotoModal }) 
           <span className="font-['Plus_Jakarta_Sans'] font-bold text-base text-[#0d1c2e]">
             {t.profileSection}
           </span>
-          <span className="text-[11px] font-semibold text-[#064e3b] bg-[#b0f0d6] px-2 py-0.5 rounded-full">
-            Active
-          </span>
+          <button
+            type="button"
+            onClick={onOpenEditProfile}
+            className="text-[11px] font-bold text-[#064e3b] bg-[#b0f0d6] hover:bg-[#80bea6] px-2.5 py-1 rounded-full flex items-center gap-1 transition-all"
+          >
+            <span className="material-symbols-outlined text-[13px]">open_in_new</span>
+            <span>{t.editProfileBtn}</span>
+          </button>
         </div>
 
         {/* Avatar customizer row */}
@@ -190,15 +232,44 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onOpenPhotoModal }) 
 
         {/* Profile Details Form */}
         <form onSubmit={handleSaveProfile} className="flex flex-col gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div>
+              <label className="block text-xs font-semibold text-[#404944] mb-1">
+                {t.displayNameLabel}
+              </label>
+              <input
+                type="text"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                placeholder="Nama Anda / Panggilan"
+                className="w-full h-10 px-3 rounded-lg border border-[#e6eeff] text-sm text-[#0d1c2e] focus:outline-none focus:ring-2 focus:ring-[#064e3b]"
+              />
+            </div>
+
+            <div>
+              <label className="block text-xs font-semibold text-[#404944] mb-1">
+                {t.titleRoleLabel}
+              </label>
+              <input
+                type="text"
+                value={levelTitle}
+                onChange={(e) => setLevelTitle(e.target.value)}
+                placeholder="Praktisi Istiqomah"
+                className="w-full h-10 px-3 rounded-lg border border-[#e6eeff] text-sm text-[#0d1c2e] focus:outline-none focus:ring-2 focus:ring-[#064e3b]"
+              />
+            </div>
+          </div>
+
           <div>
             <label className="block text-xs font-semibold text-[#404944] mb-1">
-              {t.displayNameLabel}
+              {t.bioLabel}
             </label>
-            <input
-              type="text"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              className="w-full h-10 px-3 rounded-lg border border-[#e6eeff] text-sm text-[#0d1c2e] focus:outline-none focus:ring-2 focus:ring-[#064e3b]"
+            <textarea
+              rows={2}
+              value={bio}
+              onChange={(e) => setBio(e.target.value)}
+              placeholder="Visi atau deskripsi singkat fokus hidup Anda..."
+              className="w-full p-2.5 rounded-lg border border-[#e6eeff] text-xs text-[#0d1c2e] focus:outline-none focus:ring-2 focus:ring-[#064e3b]"
             />
           </div>
 
@@ -214,25 +285,62 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onOpenPhotoModal }) 
             />
           </div>
 
-          <div>
-            <label className="block text-xs font-semibold text-[#404944] mb-1">
-              {t.quoteTagLabel}
-            </label>
-            <input
-              type="text"
-              value={quotePrinciple}
-              onChange={(e) => setQuotePrinciple(e.target.value)}
-              className="w-full h-10 px-3 rounded-lg border border-[#e6eeff] text-sm text-[#0d1c2e] focus:outline-none focus:ring-2 focus:ring-[#064e3b]"
-            />
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <div>
+              <label className="block text-xs font-semibold text-[#404944] mb-1">
+                {t.quoteTagLabel}
+              </label>
+              <input
+                type="text"
+                value={quotePrinciple}
+                onChange={(e) => setQuotePrinciple(e.target.value)}
+                className="w-full h-9 px-3 rounded-lg border border-[#e6eeff] text-xs text-[#0d1c2e] focus:outline-none focus:ring-2 focus:ring-[#064e3b]"
+              />
+            </div>
+
+            <div>
+              <label className="block text-xs font-semibold text-[#404944] mb-1">
+                {t.wakeUpLabel}
+              </label>
+              <input
+                type="time"
+                value={wakeUpTime}
+                onChange={(e) => setWakeUpTime(e.target.value)}
+                className="w-full h-9 px-2.5 rounded-lg border border-[#e6eeff] text-xs text-[#0d1c2e] focus:outline-none focus:ring-2 focus:ring-[#064e3b]"
+              />
+            </div>
+
+            <div>
+              <label className="block text-xs font-semibold text-[#404944] mb-1">
+                {t.sleepLabel}
+              </label>
+              <input
+                type="time"
+                value={sleepTime}
+                onChange={(e) => setSleepTime(e.target.value)}
+                className="w-full h-9 px-2.5 rounded-lg border border-[#e6eeff] text-xs text-[#0d1c2e] focus:outline-none focus:ring-2 focus:ring-[#064e3b]"
+              />
+            </div>
           </div>
 
-          <button
-            type="submit"
-            className="mt-1 py-2 px-4 rounded-lg bg-[#064e3b] text-white text-xs font-bold hover:bg-[#003527] transition-all self-end flex items-center gap-1"
-          >
-            <span className="material-symbols-outlined text-[15px]">save</span>
-            <span>{t.saveProfileBtn}</span>
-          </button>
+          <div className="flex items-center justify-between pt-2">
+            <button
+              type="button"
+              onClick={handleResetToGeneralProfile}
+              className="text-xs text-[#707974] hover:text-[#064e3b] font-medium flex items-center gap-1"
+            >
+              <span className="material-symbols-outlined text-[14px]">restart_alt</span>
+              <span>{t.generalProfileReset}</span>
+            </button>
+
+            <button
+              type="submit"
+              className="py-2 px-5 rounded-lg bg-[#064e3b] text-white text-xs font-bold hover:bg-[#003527] transition-all flex items-center gap-1.5 shadow-xs"
+            >
+              <span className="material-symbols-outlined text-[15px]">save</span>
+              <span>{t.saveProfileBtn}</span>
+            </button>
+          </div>
         </form>
       </div>
 

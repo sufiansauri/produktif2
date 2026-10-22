@@ -71,7 +71,23 @@ export const RhythmProvider: React.FC<{ children: React.ReactNode }> = ({ childr
   const [user, setUser] = useState<UserProfile>(() => {
     try {
       const saved = localStorage.getItem('mindful_cadence_user');
-      if (saved) return JSON.parse(saved);
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        if (
+          (parsed.name && (parsed.name.includes('Sufian') || parsed.name.includes('Ahlan, Sufian'))) ||
+          (parsed.avatarUrl && (parsed.avatarUrl.includes('aida-public') || parsed.avatarUrl.includes('photo-1534528741775-53994a69daeb')))
+        ) {
+          const sanitized: UserProfile = {
+            ...INITIAL_USER,
+            ...parsed,
+            name: (parsed.name && parsed.name.includes('Sufian')) ? 'Sahabat Rhythm' : (parsed.name || 'Sahabat Rhythm'),
+            avatarUrl: INITIAL_USER.avatarUrl,
+          };
+          localStorage.setItem('mindful_cadence_user', JSON.stringify(sanitized));
+          return sanitized;
+        }
+        return { ...INITIAL_USER, ...parsed };
+      }
     } catch (e) {
       console.error(e);
     }

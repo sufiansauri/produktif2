@@ -104,7 +104,7 @@ export const Header: React.FC<HeaderProps> = ({
                 src={user.avatarUrl}
                 onError={(e) => {
                   (e.target as HTMLImageElement).src =
-                    'https://lh3.googleusercontent.com/aida-public/AB6AXuA_6SsUiLVAVzB3mWfqhG3zGFlPH7ujuCaHAwavVx0vM-FQmleF6S3OL_N_m7MdpgErPsdIELwfAulZDyVr4h_uQZ_5_LNktBkUsYFYGVYKb1VZypMNXnNSwSwm64kHm3YTjom0kTa0_mhfcujZV9CQb6U2iAuVppTO5g3EnhQ6dBWd4LC8NTEP50exVOsl-B5QkSkz_mZ-b9Bec9nUlS07PSJ07GJ6LpU53taDI2K9ue11bSzu7wMhaQ';
+                    'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=240&q=80';
                 }}
               />
               <span className="absolute -bottom-0.5 -right-0.5 w-3.5 h-3.5 rounded-full bg-[#064e3b] text-white flex items-center justify-center text-[8px] ring-1 ring-white">

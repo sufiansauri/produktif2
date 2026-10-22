@@ -17,6 +17,7 @@ import { NotificationModal } from './components/NotificationModal';
 import { HabitDetailModal } from './components/HabitDetailModal';
 import { BlockDetailModal } from './components/BlockDetailModal';
 import { ProfilePhotoModal } from './components/ProfilePhotoModal';
+import { EditProfileModal } from './components/EditProfileModal';
 import { Toast } from './components/Toast';
 import { Habit, RhythmBlock } from './types';
 
@@ -26,6 +27,7 @@ function RhythmApp() {
   const [quickLogOpen, setQuickLogOpen] = useState(false);
   const [notificationsOpen, setNotificationsOpen] = useState(false);
   const [photoModalOpen, setPhotoModalOpen] = useState(false);
+  const [profileEditOpen, setProfileEditOpen] = useState(false);
   const [selectedHabit, setSelectedHabit] = useState<Habit | null>(null);
   const [selectedBlock, setSelectedBlock] = useState<RhythmBlock | null>(null);
 
@@ -45,6 +47,7 @@ function RhythmApp() {
             onOpenQuickLog={() => setQuickLogOpen(true)}
             onSelectHabit={(habit) => setSelectedHabit(habit)}
             onSelectBlock={(block) => setSelectedBlock(block)}
+            onOpenEditProfile={() => setProfileEditOpen(true)}
           />
         )}
 
@@ -76,7 +79,10 @@ function RhythmApp() {
         {activeTab === 'progress' && <ProgressView />}
 
         {activeTab === 'settings' && (
-          <SettingsView onOpenPhotoModal={() => setPhotoModalOpen(true)} />
+          <SettingsView
+            onOpenPhotoModal={() => setPhotoModalOpen(true)}
+            onOpenEditProfile={() => setProfileEditOpen(true)}
+          />
         )}
       </main>
 
@@ -92,6 +98,11 @@ function RhythmApp() {
       <ProfilePhotoModal
         isOpen={photoModalOpen}
         onClose={() => setPhotoModalOpen(false)}
+      />
+      <EditProfileModal
+        isOpen={profileEditOpen}
+        onClose={() => setProfileEditOpen(false)}
+        onOpenPhotoModal={() => setPhotoModalOpen(true)}
       />
       <HabitDetailModal habit={selectedHabit} onClose={() => setSelectedHabit(null)} />
       <BlockDetailModal block={selectedBlock} onClose={() => setSelectedBlock(null)} />

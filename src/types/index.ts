@@ -54,6 +54,11 @@ export interface UserProfile {
   bonusXp: number;
   level: number;
   levelTitle: string;
+  bio?: string;
+  wakeUpTime?: string;
+  sleepTime?: string;
+  tilawahDailyTargetPages?: number;
+  location?: string;
 }
 
 export type Language = 'id' | 'en';
