@@ -1,0 +1,6 @@
+{
+  "name": "Rhythm Tracker - Mindful Cadence",
+  "description": "Daily habit cadence, spiritual devotion routines, deep work time-blocking, and holistic progress tracking.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

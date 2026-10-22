@@ -1,0 +1,20 @@
+{
+  "id": "/",
+  "name": "Rhythm Tracker - Mindful Cadence",
+  "short_name": "Rhythm",
+  "description": "Daily habit cadence, spiritual devotion routines, deep work time-blocking, and holistic progress tracking.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#f8f9ff",
+  "theme_color": "#064e3b",
+  "icons": [
+    {
+      "src": "/icon.svg",
+      "sizes": "192x192 512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
